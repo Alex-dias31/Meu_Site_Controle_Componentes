@@ -8,7 +8,7 @@
 /* Estilo para o corpo da página */
 body {
     font-family: Arial, sans-serif;
-    background-image: linear-gradient(to bottom, rgba(7, 7, 7, 0.253), rgba(7, 7, 7, 0.288)), url('/Otimizacao/images/escavadeira.jpg');
+    background-image: linear-gradient(to bottom, rgba(7, 7, 7, 0.253), rgba(7, 7, 7, 0.288)), url('https://alex-dias31.github.io/Meu_Site_Controle_Componentes/images/escavadeira.jpg');
     color: #333;
     display: flex;
     justify-content: center;
