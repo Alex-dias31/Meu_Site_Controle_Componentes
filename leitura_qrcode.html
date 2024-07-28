@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/Otimizacao/style/style2.css">
+    <link rel="shortcut icon" href="/Otimizacao/images/apple-touch-icon.png" type="image/x-icon">
+    <title>Leitura de QR Code</title>
+    <script type="text/javascript" src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>  
+    <script>
+        function preencherCampos(content) {
+            const dados = content.split(';');
+            if (dados.length === 4) {
+                const [componenteOs, cliente, componente, modelo] = dados;
+                localStorage.setItem('componenteOs', componenteOs);
+                localStorage.setItem('cliente', cliente);
+                localStorage.setItem('componente', componente);
+                localStorage.setItem('modelo', modelo);
+                window.location.href = 'teste_site.html';
+            } else {
+                alert('O conteúdo do QR Code está em um formato inválido.');
+            }
+        }
+
+        window.onload = function() {
+            let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+            scanner.addListener('scan', function(content) {
+                preencherCampos(content);
+            });
+            Instascan.Camera.getCameras().then(cameras => {
+                if (cameras.length > 0) {
+                    scanner.start(cameras[0]);
+                } else {
+                    console.error("Não existe câmera no dispositivo!");
+                }
+            });
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Leitor de QR Code</h1>
+        <video id="preview"></video>
+    </div>
+</body>
+</html>

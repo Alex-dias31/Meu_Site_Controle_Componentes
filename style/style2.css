@@ -1,0 +1,42 @@
+/* Reset básico para garantir uma aparência consistente entre navegadores */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilo para o corpo da página */
+body {
+    font-family: Arial, sans-serif;
+    background-image: linear-gradient(to bottom, rgba(7, 7, 7, 0.253), rgba(7, 7, 7, 0.288)), url('/Otimizacao/images/escavadeira.jpg');
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Estilo para o container principal */
+.container {
+    text-align: center;
+    padding: 20px;
+    background: rgb(245, 247, 248);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para o título */
+h1 {
+    font-size: 24px;
+    color: #444;
+    margin-bottom: 20px;
+}
+
+/* Estilo para o vídeo da câmera */
+video {
+    width: 100%;
+    max-width: 600px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}

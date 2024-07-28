@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/Otimizacao/images/apple-touch-icon.png" type="image/x-icon">
+    <title>Controle de Componentes</title>
+    <link rel="stylesheet" href="/Otimizacao/style/style.css">
+</head>
+<body>
+    <div class="logo-container">
+        <img src="/Otimizacao/images/menu-logo-sotreq.jpg" alt="Logo" class="logo">
+    </div>
+    <div class="container">
+        <h1>Login</h1>
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Login">
+            <input type="password" id="password" placeholder="Senha">
+            <button type="submit">Entrar</button>
+        </form>
+        <div id="error-message"></div>
+    </div>
+    <footer>
+        <div class="footer-column">
+            <p>Site não oficial</p>
+        </div>
+        <div class="footer-column">
+            <p>Site feito por Alex Magalhaes Dias</p>
+            <p>Controle de Componentes CRC</p>
+        </div>
+    </footer>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Verifica as credenciais de ambos os usuários
+            if ((username === 'alex.dias' && password === '2601179') || (username === 'Josiane.dias' && password === '201412')) {
+                // Armazena o login e a senha no localStorage
+                localStorage.setItem('loginUsername', username);
+                localStorage.setItem('loginPassword', password);
+                // Redireciona para outra página
+                window.location.href = 'leitura_qrcode.html'; // caminho da página
+            } else {
+                document.getElementById('error-message').textContent = 'Usuário não identificado';
+            }
+        });
+    </script>
+</body>
+</html>

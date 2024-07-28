@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/Otimizacao/style/style3.css">
+    <link rel="shortcut icon" href="/Otimizacao/images/apple-touch-icon.png" type="image/x-icon">
+    <title>Controle de Componentes</title>
+    <script type="text/javascript" src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>  
+</head>
+<body>
+    <div class="container">
+        <h1>Controle de Movimentação de Componentes</h1>
+
+        <div class="section">
+            <h2>Dados do Componente</h2>
+            <div class="form-group-container">
+                <div class="form-group">
+                    <label for="componenteOs">OS do Componente:</label>
+                    <span id="componenteOs"></span>
+                </div>
+                <div class="form-group">
+                    <label for="cliente">Cliente:</label>
+                    <span id="cliente"></span>
+                </div>
+            </div>
+            <div class="form-group-container">
+                <div class="form-group">
+                    <label for="componente">Componente:</label>
+                    <span id="componente"></span>
+                </div>
+                <div class="form-group">
+                    <label for="modelo">Modelo:</label>
+                    <span id="modelo"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Movimentar Componente para Setor</h2>
+
+            <div class="button-group">
+                <h3>Lavagem</h3>
+                <button onclick="logMovimentacao('Lavagem', 'entrada')">Entrada</button>
+                <button onclick="logMovimentacao('Lavagem', 'saída')">Saída</button>
+            </div>
+
+            <div class="button-group">
+                <h3>Desmontagem</h3>
+                <button onclick="logMovimentacao('Desmontagem', 'entrada')">Entrada</button>
+                <button onclick="logMovimentacao('Desmontagem', 'saída')">Saída</button>
+            </div>
+
+            <div class="button-group">
+                <h3>Inspeção</h3>
+                <button onclick="logMovimentacao('Inspeção', 'entrada')">Entrada</button>
+                <button onclick="logMovimentacao('Inspeção', 'saída')">Saída</button>
+            </div>
+
+            <div class="button-group">
+                <h3>Reparo</h3>
+                <button onclick="logMovimentacao('Reparo', 'entrada')">Entrada</button>
+                <button onclick="logMovimentacao('Reparo', 'saída')">Saída</button>
+            </div>
+
+            <div class="button-group">
+                <h3>Montagem</h3>
+                <button onclick="logMovimentacao('Montagem', 'entrada')">Entrada</button>
+                <button onclick="logMovimentacao('Montagem', 'saída')">Saída</button>
+            </div>
+
+            <div class="button-group">
+                <h3>Teste</h3>
+                <button onclick="logMovimentacao('Teste', 'entrada')">Entrada</button>
+                <button onclick="logMovimentacao('Teste', 'saída')">Saída</button>
+            </div>
+
+            <div class="button-group">
+                <h3>Pintura</h3>
+                <button onclick="logMovimentacao('Pintura', 'entrada')">Entrada</button>
+                <button onclick="logMovimentacao('Pintura', 'saída')">Saída</button>
+            </div>
+
+            <div class="button-group">
+                <h3>Embalagem</h3>
+                <button onclick="logMovimentacao('Embalagem', 'entrada')">Entrada</button>
+                <button onclick="logMovimentacao('Embalagem', 'saída')">Saída</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Registro de Movimentação</h2>
+            <div id="log" class="log"></div>
+        </div>
+
+        <button id="newOSButton" onclick="redirectToQRCodePage()">Inserir Nova OS</button>
+
+        <div class="search-section">
+            <input type="text" id="searchInput" placeholder="Digite a OS para pesquisa...">
+            <button onclick="searchOS()">Pesquisar</button>
+        </div>
+    </div>
+
+    <script>
+        function logMovimentacao(sector, action) {
+            const componenteOs = document.getElementById('componenteOs').textContent;
+            const cliente = document.getElementById('cliente').textContent;
+            const componente = document.getElementById('componente').textContent;
+            const modelo = document.getElementById('modelo').textContent;
+            const usuario = localStorage.getItem('loginUsername');
+            const matricula = localStorage.getItem('loginPassword');
+
+            const timestamp = new Date().toLocaleString();
+            const logEntry = {
+                os: componenteOs,
+                cliente: cliente,
+                componente: componente,
+                modelo: modelo,
+                setor: sector,
+                acao: action,
+                usuario: usuario,
+                matricula: matricula,
+                timestamp: timestamp
+            };
+
+            // Armazenar o log no localStorage
+            let logs = JSON.parse(localStorage.getItem('movimentacoes')) || [];
+            logs.push(logEntry);
+            localStorage.setItem('movimentacoes', JSON.stringify(logs));
+
+            // Atualizar a visualização do log
+            displayLogs(componenteOs);
+        }
+
+        function displayLogs(os) {
+            const logs = JSON.parse(localStorage.getItem('movimentacoes')) || [];
+            const log = document.getElementById('log');
+            log.innerHTML = '';
+            logs.filter(entry => entry.os === os).forEach(entry => {
+                log.innerHTML += `<p>[${entry.timestamp}]<br>OS: ${entry.os}<br>Cliente: ${entry.cliente}<br>Componente: ${entry.componente}<br>Modelo: ${entry.modelo}<br>${entry.acao} no setor: ${entry.setor}<br>Usuário: ${entry.usuario}<br>Matrícula: ${entry.matricula}</p>`;
+            });
+        }
+
+        function redirectToQRCodePage() {
+            window.location.href = 'leitura_qrcode.html'; // Página de QR Code
+        }
+
+        function searchOS() {
+            const os = document.getElementById('searchInput').value;
+            const cliente = localStorage.getItem('cliente') || '';
+            const componente = localStorage.getItem('componente') || '';
+            const modelo = localStorage.getItem('modelo') || '';
+            const usuario = localStorage.getItem('loginUsername');
+            const matricula = localStorage.getItem('loginPassword');
+
+            // Abrir o relatório em uma nova guia com todos os parâmetros
+            const url = `relatorio_os.html?os=${encodeURIComponent(os)}&cliente=${encodeURIComponent(cliente)}&componente=${encodeURIComponent(componente)}&modelo=${encodeURIComponent(modelo)}&usuario=${encodeURIComponent(usuario)}&matricula=${encodeURIComponent(matricula)}`;
+            window.open(url, '_blank');
+        }
+
+        window.onload = function() {
+            const loginUsername = localStorage.getItem('loginUsername');
+            const loginPassword = localStorage.getItem('loginPassword');
+            if (loginUsername && loginPassword) {
+                const log = document.getElementById('log');
+                log.innerHTML += `<p>Último login:<br>Usuário: ${loginUsername}<br>Matrícula: ${loginPassword}</p>`;
+            }
+
+            const os = localStorage.getItem('componenteOs') || '';
+            document.getElementById('componenteOs').textContent = os;
+            document.getElementById('cliente').textContent = localStorage.getItem('cliente') || '';
+            document.getElementById('componente').textContent = localStorage.getItem('componente') || '';
+            document.getElementById('modelo').textContent = localStorage.getItem('modelo') || '';
+
+            // Carregar e exibir os logs específicos da OS
+            displayLogs(os);
+        };
+    </script>
+</body>
+</html>

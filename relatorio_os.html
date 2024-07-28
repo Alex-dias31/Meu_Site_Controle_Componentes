@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/Otimizacao/style/style4.css">
+    <title>Relatório de OS</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 60%;
+            margin: auto;
+        }
+        .info {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #858179; /* Cinza claro */
+            border: 2px solid #8b8000; /* Amarelo escuro */
+            border-radius: 5px;
+        }
+        .info label {
+            font-weight: bold;
+            color: #f8b90c; /* Amarelo escuro */
+        }
+        .info p {
+            margin: 0;
+            color: #333333; /* Preto escuro */
+        }
+        #movimentacoes {
+            list-style-type: none;
+            padding: 0;
+        }
+        #movimentacoes li {
+            margin-bottom: 5px;
+        }
+        .export-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #FFD700; /* Amarelo */
+            color: #000000; /* Preto */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s, color 0.3s; /* Transição suave para as cores */
+        }
+        .export-button:hover {
+            background-color: #FFC107; /* Tom mais claro de amarelo */
+            color: #FFFFFF; /* Branco */
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Relatório de OS</h1>
+        <div id="reportContent">
+            <div class="info">
+                <label>OS do Componente:</label>
+                <p id="osNumero">Não disponível</p>
+            </div>
+            <div class="info">
+                <label>Cliente:</label>
+                <p id="cliente">Não disponível</p>
+            </div>
+            <div class="info">
+                <label>Componente:</label>
+                <p id="componente">Não disponível</p>
+            </div>
+            <div class="info">
+                <label>Modelo:</label>
+                <p id="modelo">Não disponível</p>
+            </div>
+            <div class="info">
+                <label>Usuário:</label>
+                <p id="usuario">Não disponível</p>
+            </div>
+            <div class="info">
+                <label>Matrícula:</label>
+                <p id="matricula">Não disponível</p>
+            </div>
+            <div class="info">
+                <label>Movimentações:</label>
+                <ul id="movimentacoes"></ul>
+            </div>
+        </div>
+        <button class="export-button" onclick="exportToPDF()">Exportar para PDF</button>
+    </div>
+
+    <script>
+        function getQueryParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        function displayReport() {
+            const os = getQueryParameter('os');
+            const cliente = getQueryParameter('cliente');
+            const componente = getQueryParameter('componente');
+            const modelo = getQueryParameter('modelo');
+            const usuario = localStorage.getItem('loginUsername');
+            const matricula = localStorage.getItem('loginPassword');
+
+            // Exibir detalhes da OS
+            document.getElementById('osNumero').textContent = os || 'Não disponível';
+            document.getElementById('cliente').textContent = cliente || 'Não disponível';
+            document.getElementById('componente').textContent = componente || 'Não disponível';
+            document.getElementById('modelo').textContent = modelo || 'Não disponível';
+            document.getElementById('usuario').textContent = usuario || 'Não disponível';
+            document.getElementById('matricula').textContent = matricula || 'Não disponível';
+
+            // Buscar e exibir movimentações
+            let logs = JSON.parse(localStorage.getItem('movimentacoes')) || [];
+            let dadosOs = logs.filter(log => log.os === os);
+
+            const movimentacoes = dadosOs.map(dado => 
+                `<li>${dado.timestamp} - ${dado.setor}: ${dado.acao} (Usuário: ${dado.usuario}, Matrícula: ${dado.matricula})</li>`
+            ).join('');
+
+            document.getElementById('movimentacoes').innerHTML = movimentacoes || 'Nenhuma movimentação encontrada';
+        }
+
+        function exportToPDF() {
+            const { jsPDF } = window.jspdf;
+
+            html2canvas(document.querySelector(".container")).then(canvas => {
+                const imgData = canvas.toDataURL("image/png");
+                const pdf = new jsPDF();
+
+                const imgWidth = 210; // A4 width in mm
+                const pageHeight = 295; // A4 height in mm
+                const imgHeight = canvas.height * imgWidth / canvas.width;
+                let heightLeft = imgHeight;
+                
+                let position = 0;
+                
+                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+                
+                while (heightLeft >= 0) {
+                    position = heightLeft - imgHeight;
+                    pdf.addPage();
+                    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+                }
+                
+                pdf.save('relatorio_os.pdf');
+            });
+        }
+
+        window.onload = displayReport;
+    </script>
+</body>
+</html>
