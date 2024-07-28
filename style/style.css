@@ -12,7 +12,7 @@ body {
     align-items: center; /* Centraliza o conteúdo horizontalmente */
     width: 100%;
     min-height: 100vh; /* Garante que o body ocupe pelo menos a altura da tela */
-    background-image: linear-gradient(to bottom, rgba(7, 7, 7, 0.253), rgba(7, 7, 7, 0.288)), url('/Otimizacao/images/imagem_de_fundo.jpg.jpg');
+    background-image: linear-gradient(to bottom, rgba(7, 7, 7, 0.253), rgba(7, 7, 7, 0.288)),  url('https://alex-dias31.github.io/Meu_Site_Controle_Componentes/images/imagem_de_fundo.jpg.jpg');
     background-size: cover;
     overflow: hidden; /* Remove rolagem */
 }
