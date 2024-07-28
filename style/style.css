@@ -1,4 +1,10 @@
-/* style.css */
+/* Reset básico para garantir uma aparência consistente entre navegadores */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 html, body {
     height: 100%;
     margin: 0;
@@ -12,7 +18,7 @@ body {
     align-items: center; /* Centraliza o conteúdo horizontalmente */
     width: 100%;
     min-height: 100vh; /* Garante que o body ocupe pelo menos a altura da tela */
-    background-image: linear-gradient(to bottom, rgba(7, 7, 7, 0.253), rgba(7, 7, 7, 0.288)),  url('https://alex-dias31.github.io/Meu_Site_Controle_Componentes/images/imagem_de_fundo.jpg.jpg');
+    background-image: linear-gradient(to bottom, rgba(7, 7, 7, 0.253), rgba(7, 7, 7, 0.288)), url('https://alex-dias31.github.io/Meu_Site_Controle_Componentes/images/imagem_de_fundo.jpg.jpg');
     background-size: cover;
     overflow: hidden; /* Remove rolagem */
 }
@@ -27,7 +33,8 @@ body {
 }
 
 .container {
-    width: 400px;
+    width: 90%; /* Ajusta a largura do contêiner para dispositivos móveis */
+    max-width: 400px; /* Largura máxima para telas maiores */
     padding: 30px;
     background-color: rgba(0, 0, 0, 0.7);
     border: 1px solid #ddd;
@@ -91,10 +98,21 @@ footer {
 }
 
 .footer-column {
-    width: 33%; /* Ajusta a largura das colunas no rodapé */
+    width: 100%; /* Ajusta a largura das colunas no rodapé para 100% em telas menores */
     text-align: center;
 }
 
 .footer-column p {
     margin: 5px 0;
+}
+
+/* Media queries para dispositivos móveis */
+@media (min-width: 768px) {
+    .container {
+        width: 400px;
+    }
+
+    .footer-column {
+        width: 33%; /* Ajusta a largura das colunas no rodapé para telas maiores */
+    }
 }
