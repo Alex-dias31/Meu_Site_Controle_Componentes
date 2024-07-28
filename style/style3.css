@@ -1,158 +1,189 @@
-/* style3.css */
-body {
-    font-family: Arial, sans-serif;
+/* Reset básico para garantir uma aparência consistente entre navegadores */
+* {
     margin: 0;
     padding: 0;
-    background-image: url('https://alex-dias31.github.io/Meu_Site_Controle_Componentes/images/escavadeira.jpg'); /*imagem de fundo */
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    color: #fff; /* Texto em branco para contrastar com o fundo escuro */
+    box-sizing: border-box;
 }
 
-h1, h2 {
-    text-align: center;
-    color: #fff; /* Cor do texto dos títulos */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    background-image: linear-gradient(to bottom, rgba(7, 7, 7, 0.253), rgba(7, 7, 7, 0.288)), url('https://alex-dias31.github.io/Meu_Site_Controle_Componentes/images/escavadeira.jpg');
+    background-size: cover;
+    color: #333;
+    padding: 10px; /* Adiciona padding para melhor visualização em dispositivos móveis */
 }
 
 .container {
-    max-width: 800px;
-    margin: 40px auto;
+    text-align: center;
     padding: 20px;
-    background-color: rgba(0, 0, 0, 0.7); /* Fundo preto translúcido */
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    background: rgb(245, 247, 248);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 90%; /* Ajusta a largura do contêiner para dispositivos móveis */
+    max-width: 600px; /* Largura máxima para telas maiores */
 }
 
-.section {
+h1 {
+    font-size: 24px;
+    color: #444;
     margin-bottom: 20px;
 }
 
-.section h2 {
-    border-bottom: 2px solid #f8b90c; /* Cor da borda inferior dos subtítulos */
-    padding-bottom: 5px;
-    color: #f8b90c; /* Cor do texto dos subtítulos */
+h2 {
+    font-size: 20px;
+    color: #444;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+h3 {
+    font-size: 18px;
+    color: #444;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .form-group-container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
 }
 
 .form-group {
+    flex: 1;
+    min-width: 45%;
     margin-bottom: 10px;
-    width: 48%;
 }
 
 label {
     display: block;
+    font-weight: bold;
     margin-bottom: 5px;
-    color: #f8b90c; /* Cor do texto dos rótulos */
+    color: #444;
 }
 
-input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #f8b90c; /* Cor da borda dos inputs */
-    border-radius: 5px;
-    background-color: rgba(255, 255, 255, 0.8); /* Fundo branco translúcido */
-    color: #000;
+span {
+    display: block;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #fff;
+    color: #444;
 }
 
 .button-group {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .button-group h3 {
-    margin-bottom: 5px;
-    color: #f8b90c; /* Cor do texto dos subtítulos dos botões */
+    margin-bottom: 10px;
 }
 
-.button-group button {
-    width: 48%;
+button {
+    width: 100px;
+    height: 40px;
     padding: 10px;
-    margin: 5px 1%;
-    cursor: pointer;
     background-color: #f8b90c;
-    color: #000;
-    border: none;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
-
-.button-group button:hover {
-    background-color: #e7aa00;
-}
-
-.log {
-    margin-top: 20px;
-    background-color: rgba(0, 0, 0, 0.8); /* Fundo preto translúcido para o log */
-    padding: 10px;
-    border: 1px solid #f8b90c; /* Cor da borda do log */
-    border-radius: 5px;
-    max-height: 200px;
-    overflow-y: auto;
-}
-
-#preview {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
-}
-
-/* Estilo para o botão "Inserir Nova OS" */
-#newOSButton {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    margin-top: 20px;
-    background-color: #ffcc00; /* Cor de fundo do botão */
-    color: #000; /* Cor do texto do botão */
+    color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    text-align: center;
-    transition: background-color 0.3s;
-}
-
-#newOSButton:hover {
-    background-color: #e6b800; /* Cor de fundo do botão ao passar o mouse */
-}
-
-/* Estilos adicionais para o campo de pesquisa e o botão de pesquisa */
-.search-section {
-    margin-top: 20px;
-    text-align: center;
-}
-
-#searchInput {
-    width: 80%;
-    padding: 10px;
-    margin-right: 10px;
-    border: 1px solid #f8b90c; /* Cor da borda do campo de pesquisa */
-    border-radius: 5px;
-    background-color: rgba(255, 255, 255, 0.8); /* Fundo branco translúcido */
-    color: #000;
-    font-size: 16px; /* Tamanho da fonte do texto no campo de pesquisa */
-}
-
-#searchInput::placeholder {
-    color: #888; /* Cor do texto do placeholder */
-    font-size: 16px; /* Tamanho da fonte do placeholder */
-}
-
-button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    background-color: #f8b90c;
-    color: #000;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    margin: 5px;
 }
 
 button:hover {
-    background-color: #e7aa00;
+    background-color: #e0a800;
+}
+
+.log {
+    text-align: left;
+    padding: 10px;
+    background: #fff;
+    border-radius: 4px;
+    margin-top: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.log p {
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #444;
+}
+
+.search-section {
+    margin-top: 20px;
+}
+
+.search-section input {
+    width: calc(100% - 110px);
+    height: 40px;
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.search-section button {
+    height: 40px;
+    padding: 10px;
+    background-color: #f8b90c;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.search-section button:hover {
+    background-color: #e0a800;
+}
+
+/* Media queries para dispositivos móveis */
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .form-group-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .form-group {
+        width: 100%;
+    }
+
+    .button-group {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    button {
+        width: calc(100% - 20px);
+        margin: 5px 0;
+    }
+
+    .search-section input {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .search-section button {
+        width: 100%;
+    }
 }
