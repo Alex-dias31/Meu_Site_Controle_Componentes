@@ -14,15 +14,26 @@
             height: 100vh;
             margin: 0;
             font-family: Arial, sans-serif;
+            background-color: #f0f0f0; /* Cor de fundo suave para a página */
         }
         .container {
-            width: 60%;
+            width: 80%;
+            max-width: 800px; /* Limita a largura máxima da página */
             margin: auto;
+            padding: 20px;
+            background-color: #ffffff; /* Fundo branco para o conteúdo */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333333;
+            margin-bottom: 20px;
         }
         .info {
             margin-bottom: 10px;
             padding: 10px;
-            background-color: #858179; /* Cinza claro */
+            background-color: #f8f8f8;
             border: 2px solid #8b8000; /* Amarelo escuro */
             border-radius: 5px;
         }
@@ -42,8 +53,10 @@
             margin-bottom: 5px;
         }
         .export-button {
+            display: block;
+            width: 100%;
             margin-top: 20px;
-            padding: 10px 20px;
+            padding: 10px 0;
             background-color: #FFD700; /* Amarelo */
             color: #000000; /* Preto */
             border: none;
@@ -52,6 +65,7 @@
             font-size: 16px;
             font-weight: bold;
             transition: background-color 0.3s, color 0.3s; /* Transição suave para as cores */
+            text-align: center;
         }
         .export-button:hover {
             background-color: #FFC107; /* Tom mais claro de amarelo */
@@ -137,8 +151,8 @@
                 const imgData = canvas.toDataURL("image/png");
                 const pdf = new jsPDF();
 
-                const imgWidth = 210; // A4 width in mm
-                const pageHeight = 295; // A4 height in mm
+                const imgWidth = 210; // Largura da página A4 em mm
+                const pageHeight = 295; // Altura da página A4 em mm
                 const imgHeight = canvas.height * imgWidth / canvas.width;
                 let heightLeft = imgHeight;
                 
