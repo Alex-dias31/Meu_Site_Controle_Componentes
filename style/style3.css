@@ -37,6 +37,7 @@ h1, h2 {
 .form-group-container {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap; /* Permite que os itens quebrem linha se necessário */
 }
 
 .form-group {
@@ -62,6 +63,8 @@ input {
 
 .button-group {
     margin-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap; /* Permite que os itens quebrem linha se necessário */
 }
 
 .button-group h3 {
@@ -155,4 +158,34 @@ button {
 
 button:hover {
     background-color: #e7aa00;
+}
+
+/* Media queries para dispositivos móveis */
+@media (max-width: 768px) {
+    .form-group-container {
+        flex-direction: column;
+    }
+
+    .form-group {
+        width: 100%;
+    }
+
+    .button-group {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .button-group button {
+        width: calc(100% - 20px);
+        margin: 10px 0; /* Adiciona margem superior e inferior para evitar corte */
+    }
+
+    #searchInput {
+        width: calc(100% - 20px);
+        margin-bottom: 10px;
+    }
+
+    #newOSButton {
+        width: calc(100% - 20px);
+    }
 }
